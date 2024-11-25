@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorpresa</title>
+    <link rel="stylesheet" href="formas.css">
+    <style>
+        /* Estilos para el carrusel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carousel img {
+            width: 30%;  /* Ajusta el ancho según sea necesario */
+            height: auto;  /* Mantiene la proporción de la imagen */
+            display: block;
+            margin: 0 auto;  /* Centra la imagen dentro del carrusel */
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .carousel-button.left {
+            left: 10px;
+        }
+
+        .carousel-button.right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">HIDROTEC</div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="register.html">Servicios en linea</a></li>
+                <li><a href="#products">Productos y Materiales</a></li>
+                <li><a href="https://ahualla.github.io/calculadora-de-huella-hidrica/" target="_blank">Calculadora Huella Hidrica</a></li>
+            </ul>
+        </nav>
+        <div class="social">
+            <a href="https://www.facebook.com/profile.php?id=61569570535838&mibextid=LQQJ4d&rdid=6A3S85S9vWMySiik#" target="_blank"><img src="fblogo.jpg" alt="Facebook"></a>
+            <a href="https://www.instagram.com/hidrotec_life/" target="_blank"><img src="iglogo.jpg" alt="Instagram"></a>
+            <a href="https://www.tiktok.com/@hidrotec_life?_t=8rh4cWsoE6x&_r=1" target="_blank"><img src="tiktoklogo.jpg" alt="TikTok"></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>HIDROTEC</h1>
+                <p>Olvídate de regar manualmente! Nuestro sensor de riego automático cuida tus plantas con precisión y eficiencia, ahorrándote tiempo y agua. 🌱💧</p>
+                <div class="buttons">
+                    <button onclick="location.href='register.html'">Registrarse</button>
+                    <button onclick="location.href='/cgi-bin/comment.c'">Dejar un comentario</button>
+                </div>
+            </div>
+            <div class="carousel">
+                <button class="carousel-button left" onclick="moveSlide(-1, 'hero-carousel')">&#10094;</button>
+                <div id="hero-carousel" class="carousel-inner">
+                    <div class="carousel-item"><img src="hidrotec.jpg" style="width: 400px; height: 250px" alt="Foto 1"></div>
+                    <div class="carousel-item"><img src="codigo.jpg" style="width: 400px; height: 250px" alt="Foto 2"></div>
+                    <div class="carousel-item"><img src="prototipo.jpg" style="width: 400px; height: 250px" alt="Foto 3"></div>
+                    <!-- Agrega más imágenes aquí -->
+                </div>
+                <button class="carousel-button right" onclick="moveSlide(1, 'hero-carousel')">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <h2>Nuestros Productos</h2>
+            <div class="product-list">
+                <div class="product">
+                    <img src="hidro.jpg" style="width: 100px; height: 150px" alt="Foto Sexy">
+                    <h3>hidrotec</h3>
+                    <p>$80.00</p>
+                    <button onclick="location.href='/cgi-bin/cart.cgi?action=add&item=hamburguesa'">Añadir al carrito</button>
+                </div>
+                <div class="product">
+                    <img src="libro.jpg" style="width: 100px; height: 150px" alt="Foto Natural">
+                    <h3>Codigos</h3>
+                    <p>$25.00</p>
+                    <button onclick="location.href='/cgi-bin/cart.cgi?action=add&item=hamburguesa'">Añadir al carrito</button>
+                </div>
+                <div class="product">
+                    <img src="lab.jpg" style="width: 100px; height: 150px" alt="Certificado de Validacion">
+                    <h3>Prueba Lab.</h3>
+                    <p>$50.00</p>
+                    <button onclick="location.href='/cgi-bin/cart.cgi?action=add&item=hamburguesa'">Añadir al carrito</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 HIDROTEC PRODUCCIONS. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // JavaScript para el carrusel
+        function moveSlide(step, carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const slides = carousel.querySelectorAll('.carousel-item');
+            const totalSlides = slides.length;
+            let index = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+            if (index === -1) index = 0;
+
+            index = (index + step + totalSlides) % totalSlides;
+            const offset = -index * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+        }
+
+        // Inicializa el primer slide como activo
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousels = document.querySelectorAll('.carousel-inner');
+            carousels.forEach(carousel => {
+                carousel.querySelector('.carousel-item').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
